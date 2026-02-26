@@ -29,6 +29,13 @@ class User(BaseModel):
     name = models.CharField(max_length=150)
     email = models.CharField(max_length=254)
 
+    class Meta(BaseModel.Meta):
+        ordering = ["name"]
+        verbose_name_plural = "Tags"
+
+    def __str__(self):
+        return self.name
+
 
 class Tag(BaseModel):
     """Modelo para tags/categorias de tarefas"""

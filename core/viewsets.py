@@ -10,14 +10,19 @@ from core.models import Task, Tag, TaskTag, User
 # Importar serializers padrão
 # Importar serializers customizados para requisições
 from core.request_serializers import TaskCreateUpdateSerializer
-from core.filters import TaskFilter, TagFilter
-from core.serialiazers import TagSerializer, TaskDetailSerializer, UserSerializer
+from core.filters import TaskFilter, TagFilter, UserFilter
+from core.serializers import TagSerializer, TaskDetailSerializer, UserSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    
+    permission_classes = [AllowAny]
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_class = UserFilter
+    search_fields = ['name', 'email']
+    ordering_fields = ['id', 'name', 'email']
+    ordering = ['name']
 
 class TagViewSet(viewsets.ModelViewSet):
     """

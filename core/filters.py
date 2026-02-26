@@ -1,5 +1,15 @@
 from django_filters import rest_framework as filters
-from core.models import Task, Tag
+from core.models import Task, Tag, User
+
+
+
+class UserFilter(filters.FilterSet):
+    name = filters.CharFilter(field_name='name', lookup_expr='icontains')
+    email = filters.CharFilter(field_name='email', lookup_expr='icontains')
+
+    class Meta:
+        model = User
+        fields = ['name', 'email']
 
 
 class TaskFilter(filters.FilterSet):
